@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orbis Global – Importateur de fruits et légumes du Maroc</title>
+  <meta name="description" content="Orbis Global SASU importe des fruits et légumes frais du Maroc vers la France sous la marque Souss Fresh. Pastèques, tomates, poivrons – qualité Souss, livraison France entière." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sand:    #F7F3EC;
+      --clay:    #C8591A;
+      --grove:   #2D5016;
+      --leaf:    #4A7C28;
+      --dusk:    #1A1A18;
+      --mist:    #E8E3D8;
+      --white:   #FFFFFF;
+
+      --display: 'Playfair Display', Georgia, serif;
+      --body:    'Inter', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--sand);
+      color: var(--dusk);
+      font-family: var(--body);
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5vw;
+      height: 64px;
+      background: rgba(247, 243, 236, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--mist);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-mark {
+      width: 36px; height: 36px;
+      background: var(--grove);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .nav-logo-mark svg { width: 20px; height: 20px; }
+
+    .nav-logo-text {
+      display: flex; flex-direction: column; line-height: 1.1;
+    }
+
+    .nav-logo-text strong {
+      font-family: var(--display);
+      font-size: 15px;
+      color: var(--grove);
+      letter-spacing: 0.02em;
+    }
+
+    .nav-logo-text span {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--clay);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 32px;
+    }
+
+    nav ul a {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--dusk);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    nav ul a:hover { opacity: 1; }
+
+    .nav-cta {
+      background: var(--clay) !important;
+      color: var(--white) !important;
+      padding: 8px 20px;
+      border-radius: 4px;
+      opacity: 1 !important;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      padding-top: 64px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 0;
+      overflow: hidden;
+    }
+
+    .hero-text {
+      padding: 80px 5vw 80px 8vw;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--clay);
+      margin-bottom: 24px;
+    }
+
+    .hero-text h1 {
+      font-family: var(--display);
+      font-size: clamp(38px, 4.5vw, 64px);
+      font-weight: 900;
+      line-height: 1.08;
+      color: var(--grove);
+      margin-bottom: 28px;
+    }
+
+    .hero-text h1 em {
+      font-style: normal;
+      color: var(--clay);
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      font-weight: 300;
+      color: #444;
+      max-width: 420px;
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--clay);
+      color: var(--white);
+      padding: 14px 28px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: #a8440f; }
+
+    .btn-outline {
+      border: 1.5px solid var(--grove);
+      color: var(--grove);
+      padding: 14px 28px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-outline:hover { background: var(--grove); color: var(--white); }
+
+    .hero-stats {
+      display: flex;
+      gap: 36px;
+      margin-top: 56px;
+      padding-top: 40px;
+      border-top: 1px solid var(--mist);
+    }
+
+    .stat-num {
+      font-family: var(--display);
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--grove);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #777;
+      margin-top: 2px;
+    }
+
+    /* Hero visual – animated produce illustration */
+    .hero-visual {
+      height: 100vh;
+      background: var(--grove);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(200, 89, 26, 0.25) 0%, transparent 65%);
+    }
+
+    .produce-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 40px;
+      max-width: 340px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .produce-item {
+      aspect-ratio: 1;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      animation: floatItem 4s ease-in-out infinite;
+    }
+
+    .produce-item:nth-child(2) { animation-delay: 0.4s; }
+    .produce-item:nth-child(3) { animation-delay: 0.8s; }
+    .produce-item:nth-child(4) { animation-delay: 1.2s; }
+    .produce-item:nth-child(5) { animation-delay: 0s; background: rgba(200,89,26,0.3) !important; }
+    .produce-item:nth-child(6) { animation-delay: 1.6s; }
+    .produce-item:nth-child(7) { animation-delay: 2s; }
+    .produce-item:nth-child(8) { animation-delay: 2.4s; }
+    .produce-item:nth-child(9) { animation-delay: 2.8s; }
+
+    @keyframes floatItem {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-6px); }
+    }
+
+    .produce-item { background: rgba(255,255,255,0.07); }
+
+    .hero-badge {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      padding: 10px 20px;
+      border-radius: 100px;
+      white-space: nowrap;
+      z-index: 3;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 100px 8vw; }
+
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--clay);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: var(--display);
+      font-size: clamp(28px, 3vw, 46px);
+      font-weight: 700;
+      color: var(--grove);
+      margin-bottom: 20px;
+      line-height: 1.15;
+    }
+
+    .section-lead {
+      font-size: 16px;
+      font-weight: 300;
+      color: #555;
+      max-width: 560px;
+      line-height: 1.75;
+      margin-bottom: 60px;
+    }
+
+    /* ── PRODUITS ── */
+    #produits { background: var(--white); }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+
+    .product-card {
+      background: var(--sand);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.25s;
+    }
+
+    .product-card:hover { transform: translateY(-4px); }
+
+    .product-card-img {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+    }
+
+    .product-card-body {
+      padding: 20px 24px;
+    }
+
+    .product-card-body h3 {
+      font-family: var(--display);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--grove);
+      margin-bottom: 6px;
+    }
+
+    .product-card-body p {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .product-season {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--clay);
+      border: 1px solid var(--clay);
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+
+    /* ── POURQUOI NOUS ── */
+    #avantages { background: var(--sand); }
+
+    .avantages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 32px;
+    }
+
+    .avantage-item {
+      padding: 32px;
+      background: var(--white);
+      border-radius: 8px;
+      border-left: 4px solid var(--clay);
+    }
+
+    .avantage-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+
+    .avantage-item h3 {
+      font-family: var(--display);
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--grove);
+      margin-bottom: 10px;
+    }
+
+    .avantage-item p {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.65;
+    }
+
+    /* ── PROCESSUS ── */
+    #processus { background: var(--grove); color: var(--white); }
+
+    #processus .section-title { color: var(--white); }
+    #processus .section-eyebrow { color: rgba(255,255,255,0.5); }
+    #processus .section-lead { color: rgba(255,255,255,0.65); }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0;
+      position: relative;
+    }
+
+    .step {
+      padding: 32px 24px;
+      border-right: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+    }
+
+    .step:last-child { border-right: none; }
+
+    .step-num {
+      font-family: var(--display);
+      font-size: 56px;
+      font-weight: 900;
+      color: rgba(255,255,255,0.08);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .step h3 {
+      font-family: var(--display);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.65;
+    }
+
+    /* ── À PROPOS ── */
+    #apropos {
+      background: var(--white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .apropos-visual {
+      background: var(--sand);
+      border-radius: 8px;
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .info-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--mist);
+    }
+
+    .info-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .info-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #999;
+    }
+
+    .info-value {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--dusk);
+    }
+
+    #apropos .section-lead { margin-bottom: 32px; }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--clay);
+      color: var(--white);
+      text-align: center;
+    }
+
+    #contact .section-eyebrow { color: rgba(255,255,255,0.5); }
+    #contact .section-title { color: var(--white); margin-bottom: 12px; }
+    #contact .section-lead {
+      color: rgba(255,255,255,0.75);
+      margin: 0 auto 48px;
+    }
+
+    .contact-form {
+      max-width: 560px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      border-radius: 4px;
+      background: rgba(255,255,255,0.1);
+      color: var(--white);
+      font-family: var(--body);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder { color: rgba(255,255,255,0.5); }
+
+    .contact-form select option { background: var(--clay); color: #fff; }
+
+    .contact-form input:focus,
+    .contact-form select:focus,
+    .contact-form textarea:focus { border-color: rgba(255,255,255,0.8); }
+
+    .contact-form textarea { height: 120px; resize: vertical; }
+
+    .btn-white {
+      background: var(--white);
+      color: var(--clay);
+      padding: 16px 36px;
+      border: none;
+      border-radius: 4px;
+      font-family: var(--body);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .btn-white:hover { opacity: 0.9; }
+
+    .contact-info-strip {
+      margin-top: 56px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .contact-info-item {
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .contact-info-item strong {
+      display: block;
+      font-size: 15px;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dusk);
+      color: rgba(255,255,255,0.4);
+      padding: 32px 8vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    footer a:hover { color: rgba(255,255,255,0.7); }
+
+    .footer-legal {
+      display: flex;
+      gap: 24px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      #hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .hero-visual { height: 300px; }
+
+      .hero-text { padding: 60px 6vw 48px; }
+
+      section { padding: 72px 6vw; }
+
+      #apropos {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .form-row { grid-template-columns: 1fr; }
+
+      nav ul { display: none; }
+
+      .hero-stats { gap: 24px; }
+
+      .steps { grid-template-columns: 1fr; }
+
+      .step { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+      .step:last-child { border-bottom: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .produce-item { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="1.8"/>
+        <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" stroke="#fff" stroke-width="1.2"/>
+      </svg>
+    </div>
+    <div class="nav-logo-text">
+      <strong>Orbis Global</strong>
+      <span>Souss Fresh</span>
+    </div>
+  </a>
+  <ul>
+    <li><a href="#produits">Produits</a></li>
+    <li><a href="#avantages">Avantages</a></li>
+    <li><a href="#processus">Logistique</a></li>
+    <li><a href="#apropos">À propos</a></li>
+    <li><a href="#contact" class="nav-cta">Demander un devis</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-text">
+    <span class="hero-eyebrow">Importateur agréé · Maroc → France</span>
+    <h1>La fraîcheur du Souss, <em>livrée en France</em></h1>
+    <p class="hero-sub">Orbis Global SASU approvisionne grossistes, GMS et restaurants en fruits et légumes frais d'origine marocaine, expédiés via Tanger Med avec traçabilité complète.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Demander un devis</a>
+      <a href="#produits" class="btn-outline">Voir nos produits</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">48h</div>
+        <div class="stat-label">Maroc → France</div>
+      </div>
+      <div>
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Traçabilité TRACES NT</div>
+      </div>
+      <div>
+        <div class="stat-num">Souss</div>
+        <div class="stat-label">Région d'origine</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="produce-grid">
+      <div class="produce-item">🍉</div>
+      <div class="produce-item">🍅</div>
+      <div class="produce-item">🫑</div>
+      <div class="produce-item">🥒</div>
+      <div class="produce-item">🌿</div>
+      <div class="produce-item">🧅</div>
+      <div class="produce-item">🍋</div>
+      <div class="produce-item">🥕</div>
+      <div class="produce-item">🫒</div>
+    </div>
+    <div class="hero-badge">Tanger Med · Rungis · France entière</div>
+  </div>
+</section>
+
+<!-- PRODUITS -->
+<section id="produits">
+  <div class="section-eyebrow">Notre gamme</div>
+  <h2 class="section-title">Des produits de saison,<br>cueillis à maturité</h2>
+  <p class="section-lead">Nous sélectionnons les meilleurs producteurs de la région du Souss-Massa pour vous garantir qualité constante et calibres homogènes.</p>
+
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-card-img" style="background:#e8f5e0;">🍉</div>
+      <div class="product-card-body">
+        <h3>Pastèque</h3>
+        <p>Variétés Crimson Sweet et Charleston Gray. Chair sucrée, taux de brix élevé, calibres 6–10 kg.</p>
+        <span class="product-season">Mai – Septembre</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-card-img" style="background:#fff0e8;">🍅</div>
+      <div class="product-card-body">
+        <h3>Tomate</h3>
+        <p>Ronde, grappe et cerise. Production sous serre et plein champ. Calibres M à XL disponibles.</p>
+        <span class="product-season">Toute l'année</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-card-img" style="background:#f0ffe8;">🫑</div>
+      <div class="product-card-body">
+        <h3>Poivron</h3>
+        <p>Rouge, jaune, vert. Peau ferme, arôme intense. Idéal grande distribution et restauration.</p>
+        <span class="product-season">Octobre – Avril</span>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-card-img" style="background:#e8f0ff;">🥒</div>
+      <div class="product-card-body">
+        <h3>Courgette & Concombre</h3>
+        <p>Calibrage homogène, conditionnement carton ou vrac sur demande. Traçabilité garantie.</p>
+        <span class="product-season">Novembre – Mai</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AVANTAGES -->
+<section id="avantages">
+  <div class="section-eyebrow">Pourquoi Orbis Global</div>
+  <h2 class="section-title">Un partenaire fiable,<br>du champ à la livraison</h2>
+  <p class="section-lead">Nous combinons proximité avec les producteurs marocains et maîtrise des procédures d'import européen pour vous simplifier l'approvisionnement.</p>
+
+  <div class="avantages-grid">
+    <div class="avantage-item">
+      <div class="avantage-icon">🏛️</div>
+      <h3>Structure française agréée</h3>
+      <p>SASU immatriculée au RCS de Pontoise. SIREN, TVA intracommunautaire et numéro EORI enregistrés. Conformité douanière totale.</p>
+    </div>
+    <div class="avantage-item">
+      <div class="avantage-icon">🌡️</div>
+      <h3>Chaîne du froid maîtrisée</h3>
+      <p>Transport frigorifique Tanger Med → France. Conditionnement sous froid dès le départ. Délai moyen 48h port à port.</p>
+    </div>
+    <div class="avantage-item">
+      <div class="avantage-icon">📋</div>
+      <h3>Traçabilité TRACES NT</h3>
+      <p>Certificats phytosanitaires, DSCE et documents d'entrée gérés par notre équipe. Aucune charge administrative pour l'acheteur.</p>
+    </div>
+    <div class="avantage-item">
+      <div class="avantage-icon">🤝</div>
+      <h3>Producteurs sélectionnés</h3>
+      <p>Partenariats directs avec des exploitations certifiées de la région Souss-Massa pour une qualité constante et des prix compétitifs.</p>
+    </div>
+    <div class="avantage-item">
+      <div class="avantage-icon">📦</div>
+      <h3>Conditionnement flexible</h3>
+      <p>Livraison en camion complet (22 tonnes) ou groupage. Palettes, cartons, vrac selon vos besoins. Étiquetage personnalisé disponible.</p>
+    </div>
+    <div class="avantage-item">
+      <div class="avantage-icon">💬</div>
+      <h3>Interlocuteur dédié</h3>
+      <p>Un contact unique, réactif, francophone. Devis sous 24h, suivi de commande en temps réel, facturation claire.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESSUS -->
+<section id="processus">
+  <div class="section-eyebrow">Notre logistique</div>
+  <h2 class="section-title">Du producteur<br>à votre entrepôt</h2>
+  <p class="section-lead">Un circuit court et maîtrisé, de la récolte dans le Souss jusqu'à la livraison sur votre plateforme logistique en France.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>Récolte & sélection</h3>
+      <p>Nos partenaires producteurs récoltent à maturité optimale. Tri, calibrage et conditionnement en cartons ou palettes.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>Contrôle phytosanitaire</h3>
+      <p>Inspection à l'origine. Certificats phytosanitaires OMPIC / ONSSA émis avant chargement. Documents TRACES NT préparés.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>Tanger Med → France</h3>
+      <p>Transport frigorifique par camion. Traversée maritime Tanger Med – Algésiras ou direct vers Sète. Douane EORI FR géré.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h3>Livraison France</h3>
+      <p>Déchargement Rungis, MIN régionaux ou directement sur votre plateforme. Délai total : 48 à 72h après chargement.</p>
+    </div>
+  </div>
+</section>
+
+<!-- À PROPOS -->
+<section id="apropos">
+  <div>
+    <div class="section-eyebrow">Qui sommes-nous</div>
+    <h2 class="section-title">Orbis Global SASU,<br>la filière Souss Fresh</h2>
+    <p class="section-lead">Fondée pour connecter directement les exploitations marocaines aux acheteurs français, Orbis Global opère sous la marque commerciale Souss Fresh — une garantie d'origine et de qualité ancrée dans la région du Souss-Massa, première zone maraîchère d'exportation du Maroc.</p>
+    <p style="font-size:14px; color:#666; line-height:1.75; margin-bottom:24px;">Notre équipe maîtrise l'ensemble des procédures d'import-export européen : conformité douanière, phytosanitaire, chaîne du froid et logistique de bout en bout. Nous prenons en charge toute la complexité administrative afin que vous puissiez vous concentrer sur votre cœur de métier.</p>
+    <a href="#contact" class="btn-primary">Prendre contact</a>
+  </div>
+
+  <div class="apropos-visual">
+    <div class="info-row">
+      <span class="info-label">Raison sociale</span>
+      <span class="info-value">Orbis Global SASU</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">SIREN</span>
+      <span class="info-value">104 174 297</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">N° TVA Intracommunautaire</span>
+      <span class="info-value">FR58 104 174 297</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">N° EORI</span>
+      <span class="info-value">FR104174297</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Greffe</span>
+      <span class="info-value">RCS Pontoise</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Marque commerciale</span>
+      <span class="info-value">Souss Fresh</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Domaine</span>
+      <span class="info-value">orbisglobal.eu</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-eyebrow">Contact</div>
+  <h2 class="section-title">Demandez un devis</h2>
+  <p class="section-lead">Grossiste, GMS, restaurant ou plateforme logistique ? Décrivez votre besoin, nous vous répondons sous 24h.</p>
+
+  <div class="contact-form">
+    <div class="form-row">
+      <input type="text" placeholder="Société" />
+      <input type="text" placeholder="Nom & prénom" />
+    </div>
+    <div class="form-row">
+      <input type="email" placeholder="Email professionnel" />
+      <input type="tel" placeholder="Téléphone" />
+    </div>
+    <select>
+      <option value="" disabled selected>Produit recherché</option>
+      <option>Pastèque</option>
+      <option>Tomate</option>
+      <option>Poivron</option>
+      <option>Courgette / Concombre</option>
+      <option>Autre / Plusieurs produits</option>
+    </select>
+    <textarea placeholder="Volume estimé, fréquence de commande, lieu de livraison…"></textarea>
+    <button class="btn-white">Envoyer ma demande →</button>
+  </div>
+
+  <div class="contact-info-strip">
+    <div class="contact-info-item">
+      <strong>contact@orbisglobal.org</strong>
+      Email commercial
+    </div>
+    <div class="contact-info-item">
+      <strong>orbisglobal.eu</strong>
+      Site web
+    </div>
+    <div class="contact-info-item">
+      <strong>France · Maroc</strong>
+      Zones d'opération
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Orbis Global SASU · SIREN 104 174 297 · RCS Pontoise</span>
+  <div class="footer-legal">
+    <a href="#">Mentions légales</a>
+    <a href="#">Politique de confidentialité</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>
